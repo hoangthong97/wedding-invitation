@@ -227,7 +227,91 @@ animation:spin 6s linear infinite;
 0%{transform:rotate(0)}
 100%{transform:rotate(360deg)}
 }
+.hero {
+    background: url('assets/hero.jpg') center/cover no-repeat;
+    background-attachment: fixed; /* Đây là dòng tạo hiệu ứng Parallax */
+}
 
+/* --- CẬP NHẬT CSS CHO BANK INFO --- */
+.bank-card {
+    background: white;
+    border: 1px solid #f1f1f1;
+    transition: all 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa tất cả thành phần theo chiều dọc */
+}
+
+.bank-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px -10px rgba(190, 18, 60, 0.1); /* Shadow màu Rose nhẹ */
+    border-color: #fecdd3; /* Rose 200 */
+}
+
+/* Phóng to ảnh QR */
+.qr-code {
+    width: 100%;       /* Chiếm hết chiều rộng vùng chứa */
+    max-width: 280px;  /* Kích thước tối đa lớn hơn (cũ là 192px/48rem) */
+    height: auto;      /* Giữ tỷ lệ ảnh */
+    aspect-ratio: 1/1; /* Đảm bảo luôn là hình vuông */
+    object-contain: contain;
+    border-radius: 12px;
+    border: 8px solid #fef2f2; /* Rose 50 */
+    transition: transform 0.3s ease;
+}
+
+.bank-card:hover .qr-code {
+    transform: scale(1.03); /* Phóng to nhẹ khi hover */
+}
+
+/* Style cho phần text thông tin */
+.bank-details {
+    width: 100%;
+    max-width: 320px; /* Giới hạn chiều rộng phần text để đẹp mắt */
+    margin-top: 1.5rem;
+}
+/* Custom Timeline cho Mobile */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #fecdd3; /* Rose 200 */
+    left: 20px; /* Vị trí đường line trên mobile */
+}
+
+@media (min-width: 768px) {
+    .timeline-container::before {
+        left: 50%; /* Đưa ra giữa trên desktop */
+        transform: translateX(-50%);
+    }
+}
+
+/* Hiệu ứng ảnh nghiêng nhẹ giống album thật */
+.story-img {
+    transition: all 0.5s ease;
+    filter: sepia(20%);
+}
+.story-img:hover {
+    filter: sepia(0%);
+    transform: scale(1.05) rotate(0deg) !important;
+}
+/* Swiper cho Bank Info */
+.bankSwiper {
+    padding-bottom: 50px !important; /* Chừa chỗ cho phân trang */
+}
+
+.bankSwiper .swiper-slide {
+    width: 85%; /* Hiển thị một phần thẻ tiếp theo để khách biết mà vuốt */
+    max-width: 400px;
+}
+
+@media (min-width: 768px) {
+    .bankSwiper .swiper-slide {
+        width: 45%;
+    }
+}
 </style>
 
 </head>
@@ -326,78 +410,73 @@ Ngày Trọng Đại
 
 
 <!-- LOVE STORY NÂNG CẤP -->
-<section data-aos="fade-up" data-aos-duration="1000" class="py-24 bg-white overflow-hidden">
+<!-- LOVE STORY NÂNG CẤP ĐA THIẾT BỊ -->
+<section class="py-24 bg-white overflow-hidden">
     <div class="container mx-auto px-4">
-        <h2 class="title text-6xl text-center text-rose-700 mb-24" data-aos="zoom-in">
+        <h2 class="title text-6xl text-center text-rose-700 mb-20" data-aos="zoom-in">
             Our Love Story
         </h2>
 
-        <div class="relative">
-            <!-- Đường kẻ trung tâm (vẽ khi cuộn) -->
-            <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-rose-100 -translate-x-1/2 hidden md:block"></div>
-            
+        <div class="relative timeline-container px-4 md:px-0">
             <!-- Item 1: 2019 -->
-            <div class="flex flex-col md:flex-row items-center mb-20 relative">
-                <div class="w-full md:w-1/2 md:pr-12 text-center md:text-right" data-aos="fade-right">
-                    <div class="inline-block p-2 bg-rose-50 rounded-2xl shadow-sm mb-4">
-                        <img src="assets/photo1.jpg" class="w-64 h-48 object-cover rounded-xl shadow-md rotate-[-3deg] hover:rotate-0 transition-transform duration-500">
-                    </div>
+            <div class="flex flex-col md:flex-row items-start md:items-center mb-16 relative pl-12 md:pl-0">
+                <!-- Chấm tròn mốc thời gian -->
+                <div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
+                
+                <div class="w-full md:w-1/2 md:pr-16 text-left md:text-right" data-aos="fade-right">
                     <h3 class="text-3xl font-serif text-rose-700 mb-2">2019</h3>
-                    <p class="text-gray-600 italic">"Lần đầu ta gặp nhỏ..."</p>
-                    <p class="text-sm text-gray-400 mt-2">Ánh mắt ấy đã làm trái tim tôi lỡ nhịp ngay từ phút giây đầu tiên tại quán cà phê quen thuộc.</p>
+                    <div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3">
+                        <img src="assets/photo1.jpg" class="story-img w-48 h-36 md:w-64 md:h-48 object-cover rounded-lg rotate-[-3deg]">
+                    </div>
+                    <p class="text-gray-600 italic font-medium">"Lần đầu ta gặp nhỏ..."</p>
+                    <p class="text-sm text-gray-400 mt-2 leading-relaxed">Ánh mắt ấy đã làm trái tim tôi lỡ nhịp ngay từ phút giây đầu tiên tại quán cà phê quen thuộc.</p>
                 </div>
-                <div class="absolute left-1/2 -translate-x-1/2 w-10 h-10 bg-rose-500 rounded-full border-4 border-white z-10 hidden md:flex items-center justify-center shadow-lg" data-aos="zoom-in">
-                    <span class="text-white text-xs">❤️</span>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-12"></div>
+                <div class="hidden md:block md:w-1/2"></div>
             </div>
 
             <!-- Item 2: 2021 -->
-            <div class="flex flex-col md:flex-row-reverse items-center mb-20 relative">
-                <div class="w-full md:w-1/2 md:pl-12 text-center md:text-left" data-aos="fade-left">
-                    <div class="inline-block p-2 bg-rose-50 rounded-2xl shadow-sm mb-4">
-                        <img src="assets/photo2.jpg" class="w-64 h-48 object-cover rounded-xl shadow-md rotate-[3deg] hover:rotate-0 transition-transform duration-500">
-                    </div>
+            <div class="flex flex-col md:flex-row-reverse items-start md:items-center mb-16 relative pl-12 md:pl-0">
+                <div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
+                
+                <div class="w-full md:w-1/2 md:pl-16 text-left" data-aos="fade-left">
                     <h3 class="text-3xl font-serif text-rose-700 mb-2">2021</h3>
-                    <p class="text-gray-600 italic">Lời tỏ tình vụng về</p>
-                    <p class="text-sm text-gray-400 mt-2">Dưới cơn mưa phùn Hà Nội, chúng mình chính thức gọi nhau là "người yêu". Một hành trình mới bắt đầu.</p>
+                    <div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3">
+                        <img src="assets/photo2.jpg" class="story-img w-48 h-36 md:w-64 md:h-48 object-cover rounded-lg rotate-[3deg]">
+                    </div>
+                    <p class="text-gray-600 italic font-medium">Lời tỏ tình vụng về</p>
+                    <p class="text-sm text-gray-400 mt-2 leading-relaxed">Dưới cơn mưa phùn Hà Nội, chúng mình chính thức gọi nhau là "người yêu". Một hành trình mới bắt đầu.</p>
                 </div>
-                <div class="absolute left-1/2 -translate-x-1/2 w-10 h-10 bg-rose-500 rounded-full border-4 border-white z-10 hidden md:flex items-center justify-center shadow-lg" data-aos="zoom-in">
-                    <span class="text-white text-xs">💕</span>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-12"></div>
+                <div class="hidden md:block md:w-1/2"></div>
             </div>
 
             <!-- Item 3: 2024 -->
-            <div class="flex flex-col md:flex-row items-center mb-20 relative">
-                <div class="w-full md:w-1/2 md:pr-12 text-center md:text-right" data-aos="fade-right">
-                    <div class="inline-block p-2 bg-rose-50 rounded-2xl shadow-sm mb-4">
-                        <img src="assets/photo3.jpg" class="w-64 h-48 object-cover rounded-xl shadow-md rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
-                    </div>
+            <div class="flex flex-col md:flex-row items-start md:items-center mb-16 relative pl-12 md:pl-0">
+                <div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
+                
+                <div class="w-full md:w-1/2 md:pr-16 text-left md:text-right" data-aos="fade-right">
                     <h3 class="text-3xl font-serif text-rose-700 mb-2">2024</h3>
-                    <p class="text-gray-600 italic">Will you marry me?</p>
-                    <p class="text-sm text-gray-400 mt-2">Chiếc nhẫn cầu hôn đã tìm thấy chủ nhân của nó. Một cái gật đầu nhẹ nhàng và những giọt nước mắt hạnh phúc.</p>
+                    <div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3">
+                        <img src="assets/photo3.jpg" class="story-img w-48 h-36 md:w-64 md:h-48 object-cover rounded-lg rotate-[-2deg]">
+                    </div>
+                    <p class="text-gray-600 italic font-medium">Will you marry me?</p>
+                    <p class="text-sm text-gray-400 mt-2 leading-relaxed">Chiếc nhẫn cầu hôn đã tìm thấy chủ nhân của nó. Một cái gật đầu nhẹ nhàng và những giọt nước mắt hạnh phúc.</p>
                 </div>
-                <div class="absolute left-1/2 -translate-x-1/2 w-10 h-10 bg-rose-500 rounded-full border-4 border-white z-10 hidden md:flex items-center justify-center shadow-lg" data-aos="zoom-in">
-                    <span class="text-white text-xs">💍</span>
-                </div>
-                <div class="w-full md:w-1/2 md:pl-12"></div>
+                <div class="hidden md:block md:w-1/2"></div>
             </div>
 
             <!-- Item 4: 2026 -->
-            <div class="flex flex-col md:flex-row-reverse items-center relative">
-                <div class="w-full md:w-1/2 md:pl-12 text-center md:text-left" data-aos="fade-left">
-                    <div class="inline-block p-2 bg-rose-50 rounded-2xl shadow-sm mb-4">
-                        <img src="assets/photo4.jpg" class="w-64 h-48 object-cover rounded-xl shadow-md rotate-[2deg] hover:rotate-0 transition-transform duration-500">
-                    </div>
+            <div class="flex flex-col md:flex-row-reverse items-start md:items-center relative pl-12 md:pl-0">
+                <div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
+                
+                <div class="w-full md:w-1/2 md:pl-16 text-left" data-aos="fade-left">
                     <h3 class="text-3xl font-serif text-rose-700 mb-2">2026</h3>
-                    <p class="text-gray-600 italic">Mãi mãi một tình yêu</p>
-                    <p class="text-sm text-gray-400 mt-2">Cám ơn bạn đã xuất hiện để hoàn thiện mảnh ghép cuộc đời mình. Chào mừng ngày chung đôi!</p>
+                    <div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3">
+                        <img src="assets/photo4.jpg" class="story-img w-48 h-36 md:w-64 md:h-48 object-cover rounded-lg rotate-[2deg]">
+                    </div>
+                    <p class="text-gray-600 italic font-medium">Mãi mãi một tình yêu</p>
+                    <p class="text-sm text-gray-400 mt-2 leading-relaxed">Cám ơn bạn đã xuất hiện để hoàn thiện mảnh ghép cuộc đời mình. Chào mừng ngày chung đôi!</p>
                 </div>
-                <div class="absolute left-1/2 -translate-x-1/2 w-10 h-10 bg-rose-500 rounded-full border-4 border-white z-10 hidden md:flex items-center justify-center shadow-lg" data-aos="zoom-in">
-                    <span class="text-white text-xs">🎉</span>
-                </div>
-                <div class="w-full md:w-1/2 md:pr-12"></div>
+                <div class="hidden md:block md:w-1/2"></div>
             </div>
         </div>
     </div>
@@ -620,24 +699,46 @@ class="inline-block mt-4 px-6 py-2 bg-rose-600 text-white rounded-full shadow ho
 </section>
 
 
+<!-- BANK INFO SECTION -->
+<section data-aos="fade-up" data-aos-duration="1000" class="py-24 bg-rose-50/50 text-center">
+    <div class="container mx-auto px-6">
+        <h2 class="title text-6xl text-rose-700 mb-4">Hộp Mừng Cưới</h2>
+        <p class="text-gray-500 italic mb-16 max-w-2xl mx-auto leading-relaxed">
+            Hạnh phúc của chúng mình trọn vẹn hơn khi có sự chúc phúc của bạn. <br class="hidden md:block"> Gửi yêu thương đến tổ ấm mới của Thông & Lan.
+        </p>
 
-<!-- MAP -->
+        <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto relative">
+            <div class="absolute -top-10 -left-10 text-6xl opacity-20 rotate-[-15deg]">🌸</div>
+            <div class="absolute -bottom-10 -right-10 text-6xl opacity-20 rotate-[15deg]">✨</div>
+           
+            <div class="bank-card p-10 rounded-3xl shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-20 h-20 bg-rose-100 rounded-bl-full opacity-60"></div>
 
-<section  data-aos="fade-up" data-aos-duration="1000" class="py-20 text-center">
+                <h3 class="title text-4xl text-rose-600 mb-8 z-10 relative">Cô Dâu</h3>
+                
+                <div class="flex justify-center w-full">
+                    <img src="assets/qr-chu-re.jpg" 
+                         alt="QR Cô Dâu" class="qr-code shadow-inner">
+                </div>
 
-<h2 class="title text-5xl text-rose-700 mb-10">
-Địa Điểm
-</h2>
+                <div class="bank-details text-left space-y-3 text-base">
+                    <p class="flex justify-between items-center border-b border-gray-100 pb-2">
+                        <span class="text-gray-500">Ngân hàng:</span> 
+                        <span class="font-semibold uppercase text-rose-800">TPBank</span>
+                    </p>
+                    <p class="flex justify-between items-center border-b border-gray-100 pb-2 hover:bg-rose-50 rounded px-1 transition" onclick="copyToClipboard('0345090060')" title="Click để sao chép">
+                        <span class="text-gray-500">Số tài khoản:</span> 
+                        <span class="font-bold tracking-wider text-lg cursor-pointer">0345090060 📋</span>
+                    </p>
+                    <p class="flex justify-between items-center">
+                        <span class="text-gray-500">Chủ TK:</span> 
+                        <span class="font-semibold uppercase text-gray-800">Nguyễn Ngọc Thảo Lan</span>
+                    </p>
+                </div>
+            </div>
 
-<div class="max-w-4xl mx-auto px-6">
-
-<iframe
-class="w-full h-96 rounded-xl shadow"
-src="https://www.google.com/maps?q=Thanh%20Hoa&output=embed">
-</iframe>
-
-</div>
-
+        </div>
+    </div>
 </section>
 
 
