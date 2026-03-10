@@ -700,43 +700,48 @@ class="inline-block mt-4 px-6 py-2 bg-rose-600 text-white rounded-full shadow ho
 
 
 <!-- BANK INFO SECTION -->
+<!-- BANK INFO SECTION (SINGLE CARD - CÔ DÂU) -->
 <section data-aos="fade-up" data-aos-duration="1000" class="py-24 bg-rose-50/50 text-center">
     <div class="container mx-auto px-6">
         <h2 class="title text-6xl text-rose-700 mb-4">Hộp Mừng Cưới</h2>
-        <p class="text-gray-500 italic mb-16 max-w-2xl mx-auto leading-relaxed">
-            Hạnh phúc của chúng mình trọn vẹn hơn khi có sự chúc phúc của bạn. <br class="hidden md:block"> Gửi yêu thương đến tổ ấm mới của Thông & Lan.
+        <p class="text-gray-500 italic mb-12 max-w-2xl mx-auto leading-relaxed px-4">
+            Hạnh phúc của chúng mình trọn vẹn hơn khi có sự chúc phúc của bạn. <br class="hidden md:block"> Gửi yêu thương đến tổ ấm mới của chúng mình.
         </p>
 
-        <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto relative">
-            <div class="absolute -top-10 -left-10 text-6xl opacity-20 rotate-[-15deg]">🌸</div>
-            <div class="absolute -bottom-10 -right-10 text-6xl opacity-20 rotate-[15deg]">✨</div>
-           
-            <div class="bank-card p-10 rounded-3xl shadow-sm relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-20 h-20 bg-rose-100 rounded-bl-full opacity-60"></div>
-
-                <h3 class="title text-4xl text-rose-600 mb-8 z-10 relative">Cô Dâu</h3>
+        <!-- Thẻ Ngân Hàng Căn Giữa -->
+        <div class="max-w-md mx-auto">
+            <div class="bank-card p-10 rounded-3xl shadow-lg relative overflow-hidden bg-white border border-rose-100">
+                <!-- Họa tiết trang trí góc -->
+                <div class="absolute top-0 right-0 w-24 h-24 bg-rose-100 rounded-bl-full opacity-60"></div>
                 
-                <div class="flex justify-center w-full">
-                    <img src="assets/qr-chu-re.jpg" 
-                         alt="QR Cô Dâu" class="qr-code shadow-inner">
+                <h3 class="title text-4xl text-rose-600 mb-8 z-10 relative">Mừng Cưới dâu rể</h3>
+                
+                <div class="flex justify-center w-full mb-8">
+                    <!-- Đảm bảo file ảnh qr-co-dau.jpg có trong thư mục assets -->
+                    <img src="assets/qr-chu-re.jpg" alt="QR Cô Dâu" 
+                         class="qr-code shadow-inner border-8 border-rose-50 w-full max-w-[280px] rounded-2xl transition-transform duration-500 hover:scale-105">
                 </div>
 
-                <div class="bank-details text-left space-y-3 text-base">
-                    <p class="flex justify-between items-center border-b border-gray-100 pb-2">
+                <div class="bank-details text-left space-y-4 text-base bg-rose-50/30 p-6 rounded-2xl">
+                    <p class="flex justify-between items-center border-b border-rose-100 pb-2">
                         <span class="text-gray-500">Ngân hàng:</span> 
                         <span class="font-semibold uppercase text-rose-800">TPBank</span>
                     </p>
-                    <p class="flex justify-between items-center border-b border-gray-100 pb-2 hover:bg-rose-50 rounded px-1 transition" onclick="copyToClipboard('0345090060')" title="Click để sao chép">
+                    <div class="flex justify-between items-center border-b border-rose-100 pb-2 cursor-pointer group" 
+                         onclick="copyToClipboard('0345090060')" title="Click để sao chép">
                         <span class="text-gray-500">Số tài khoản:</span> 
-                        <span class="font-bold tracking-wider text-lg cursor-pointer">0345090060 📋</span>
-                    </p>
+                        <span class="font-bold tracking-wider text-lg text-rose-900 group-hover:text-rose-600 transition">
+                            0345090060 <span class="text-sm">📋</span>
+                        </span>
+                    </div>
                     <p class="flex justify-between items-center">
                         <span class="text-gray-500">Chủ TK:</span> 
                         <span class="font-semibold uppercase text-gray-800">Nguyễn Ngọc Thảo Lan</span>
                     </p>
                 </div>
+                
+                <p class="mt-4 text-xs text-gray-400 italic">Chạm vào số tài khoản để sao chép nhanh</p>
             </div>
-
         </div>
     </div>
 </section>
