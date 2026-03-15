@@ -121,6 +121,64 @@
 			.event-title { font-size: 2rem; }
 		}
 		
+		@media (max-width: 767px) {
+    .couple-section { padding: 30px 10px; background: #fff; }
+
+    .couple-item {
+        display: grid;
+        grid-template-columns: 45% 55%; /* Cô dâu: Ảnh 45% - Chữ 55% */
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .couple-item.reverse {
+        grid-template-columns: 55% 45%; /* Chú rể: Chữ 55% - Ảnh 45% */
+    }
+
+    /* Thanh border dọc chung */
+    .couple-item::after {
+        content: "";
+        position: absolute;
+        top: 10%;
+        bottom: 10%;
+        width: 1px;
+        background: #fecdd3;
+        opacity: 0.5;
+        z-index: 1;
+    }
+
+    /* Vị trí cho Cô dâu (Ảnh trái - Chữ phải) */
+    .couple-item:not(.reverse)::after {
+        left: 45%; 
+    }
+
+    /* Vị trí cho Chú rể (Chữ trái - Ảnh phải) */
+    .couple-item.reverse::after {
+        left: 55%; /* Đẩy thanh dọc sang phải để không đè vào chữ bên trái */
+    }
+
+    .couple-info {
+        padding: 0 10px; /* Thêm khoảng trống để chữ không chạm sát thanh dọc */
+        z-index: 2;
+    }
+
+    .couple-item.reverse .couple-info {
+        text-align: right; /* Căn lề phải cho hài hòa với ảnh bên phải */
+    }
+
+    .couple-info h2 {
+        font-size: 1.4rem !important;
+        line-height: 1.2;
+    }
+
+    .bio-content p {
+        font-size: 0.75rem !important;
+        margin-top: 5px;
+    }
+}
+		
 		/* --- SECTION ALBUM & LIGHTBOX --- */
 		.album-section { padding: 80px 15px; background: #fffcfc; }
 		.mySwiper { padding-bottom: 50px !important; }
@@ -231,6 +289,38 @@
 			.timeline-container .absolute.md\:left-1\/2 {
 				left: 50% !important;
 				transform: translateX(-50%) !important;
+			}
+		}
+		
+		/* --- BỐ CỤC 4 ẢNH DƯỚI ALBUM --- */
+		.album-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr); /* Luôn chia 2 cột */
+			gap: 15px;
+			margin-top: 30px;
+		}
+
+		.grid-item img {
+			width: 100%;
+			aspect-ratio: 1/1; /* Ép ảnh thành hình vuông cho đều (hoặc 3/4 tùy bạn) */
+			object-fit: cover;
+			border-radius: 15px;
+			box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+			transition: transform 0.3s ease;
+			cursor: zoom-in;
+		}
+
+		.grid-item img:hover {
+			transform: scale(1.02);
+		}
+
+		@media (min-width: 768px) {
+			.album-grid {
+				gap: 30px;
+				margin-top: 50px;
+			}
+			.grid-item img {
+				border-radius: 20px;
 			}
 		}
     </style>
@@ -414,7 +504,7 @@
 	<section class="album-section" data-aos="fade-up">
 		<h2 class="title text-6xl text-center text-rose-700 mb-12">Album Ảnh Cưới</h2>
 		
-		<div class="swiper mySwiper max-w-5xl mx-auto">
+		<div class="swiper mySwiper max-w-5xl mx-auto px-6">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide"><img src="assets/photo1.jpg" onclick="showFull(this.src)"></div>
 				<div class="swiper-slide"><img src="assets/photo2.jpg" onclick="showFull(this.src)"></div>
@@ -426,6 +516,21 @@
 			<div class="swiper-pagination"></div>
 			<div class="swiper-button-next text-rose-600"></div>
 			<div class="swiper-button-prev text-rose-600"></div>
+		</div>
+
+		<div class="album-grid max-w-5xl mx-auto px-6">
+			<div class="grid-item" data-aos="fade-up">
+				<img src="assets/photo1.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 1">
+			</div>
+			<div class="grid-item" data-aos="fade-up" data-aos-delay="100">
+				<img src="assets/photo2.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 2">
+			</div>
+			<div class="grid-item" data-aos="fade-up" data-aos-delay="200">
+				<img src="assets/photo3.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 3">
+			</div>
+			<div class="grid-item" data-aos="fade-up" data-aos-delay="300">
+				<img src="assets/photo4.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 4">
+			</div>
 		</div>
 	</section>
 
