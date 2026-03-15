@@ -16,7 +16,22 @@
     <style>
         body { font-family: 'Playfair Display', serif; scroll-behavior: smooth; background: #fff7f7; overflow-x: hidden; margin: 0; }
         .title { font-family: 'Great Vibes', cursive; }
-        .hero { background: url('assets/hero.jpg') center/cover no-repeat; background-attachment: fixed; }
+        /* --- TỐI ƯU ẢNH HERO CHO ĐIỆN THOẠI --- */
+		.hero { 
+			background: url('assets/hero.jpg') center/cover no-repeat; 
+			background-attachment: fixed; /* Hiệu ứng Parallax cho máy tính */
+		}
+
+		@media (max-width: 1024px) {
+			.hero {
+				/* Tắt background-attachment fixed trên mobile/tablet để tránh lỗi */
+				background-attachment: scroll !important; 
+				background-position: center center;
+				/* Đảm bảo chiều cao hiển thị tốt trên màn hình dọc */
+				min-height: 100vh; 
+				min-height: -webkit-fill-available; 
+			}
+		}
         .overlay { background: rgba(0, 0, 0, 0.4); }
 
         /* --- HIỆU ỨNG CÁNH CỬA TRƯỢT --- */
