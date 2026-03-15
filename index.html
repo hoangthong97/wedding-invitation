@@ -1,974 +1,645 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trọng Thông & Thảo Lan Wedding</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@300;400;600&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<title>Trọng Thông & Thảo Lan Wedding</title>
+    <style>
+        body { font-family: 'Playfair Display', serif; scroll-behavior: smooth; background: #fff7f7; overflow-x: hidden; margin: 0; }
+        .title { font-family: 'Great Vibes', cursive; }
+        .hero { background: url('assets/hero.jpg') center/cover no-repeat; background-attachment: fixed; }
+        .overlay { background: rgba(0, 0, 0, 0.4); }
 
-<script src="https://cdn.tailwindcss.com"></script>
+        /* --- HIỆU ỨNG CÁNH CỬA TRƯỢT --- */
+        .opening { position: fixed; inset: 0; z-index: 9999; display: flex; overflow: hidden; }
+        .opening-left, .opening-right {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: #fff;
+            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1;
+        }
+       /* --- BỎ THANH KẺ DỌC Ở MÀN HÌNH MỞ ĐẦU --- */
+		.opening-left { 
+			left: 0; 
+			border-right: none; /* Đã xóa border ở đây */
+		}
+		.opening-right { 
+			right: 0; 
+		}
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
-<!-- Thêm vào <head> -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        /* Trượt khi thêm class .opened */
+        .opening.opened .opening-left { transform: translateX(-100%); }
+        .opening.opened .opening-right { transform: translateX(100%); }
 
-<style>
+        .invite-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+        .opening.opened .invite-container { opacity: 0; visibility: hidden; }
 
-body{
-font-family:'Playfair Display',serif;
-scroll-behavior:smooth;
-background:#fff7f7;
-}
+        /* Phong bì */
+        .envelope { width: 300px; height: 180px; background: linear-gradient(145deg, #fb7185, #e11d48); position: relative; border-radius: 6px; cursor: pointer; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25); }
+        .flap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #f43f5e; clip-path: polygon(0 0, 100% 0, 50% 60%); transform-origin: top; transition: transform 0.8s; }
+        .envelope.open .flap { transform: rotateX(180deg); }
+        .seal { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 40px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.2); } }
 
-.title{
-font-family:'Great Vibes',cursive;
-}
+        /* Flowers */
+        .flower { position: fixed; top: -10px; animation: fall linear infinite; pointer-events: none; z-index: 99; }
+        @keyframes fall { 0% { transform: translateY(-10px) rotate(0) } 100% { transform: translateY(100vh) rotate(360deg) } }
 
-.hero{
-background:url('assets/hero.jpg') center/cover no-repeat;
-}
+        /* Couple Section */
+        .couple-section { padding: 60px 15px; background: #fff; }
+        .couple-item { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 30px; max-width: 900px; margin: 0 auto 50px auto; position: relative; }
+        .couple-img img { width: 100%; border-radius: 150px 150px 0 0; border: 5px solid #fff1f2; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        
+        @media (max-width: 767px) {
+            .couple-item { grid-template-columns: 45% 55%; gap: 10px; margin-bottom: 40px; }
+            .couple-item.reverse { grid-template-columns: 55% 45%; }
+            .couple-item::after { content: ""; position: absolute; left: 45%; top: 10%; bottom: 10%; width: 1px; background: #fecdd3; opacity: 0.5; }
+            .couple-item.reverse::after { left: 55%; }
+            .couple-img img { border-radius: 60px 60px 0 0; }
+            .couple-info h2 { font-size: 1.6rem; }
+        }
 
-.overlay{
-background:rgba(0,0,0,0.4);
-}
+        /* Countdown & Bank */
+        #countdown div { background: white; padding: 15px; border-radius: 10px; min-width: 70px; color: #be123c; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .qr-code { width: 100%; max-width: 280px; aspect-ratio: 1/1; border-radius: 12px; border: 8px solid #fef2f2; }
 
-.opening{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:9999;
-text-align:center;
-}
+        /* RSVP Form */
+        .rsvp-container { max-width: 500px; margin: 0 auto; padding: 30px; background: #f9fbf9; border-radius: 20px; border: 1px solid #e0ede0; }
+        .rsvp-form input, .rsvp-form select, .rsvp-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Quicksand', sans-serif; }
+		
+		/* --- SECTION LỄ CƯỚI --- */
+		.wedding-event-section { padding: 80px 15px; background: #fff; }
+		.event-card {
+			background: #fffcfc;
+			border: 1px solid #fecdd3;
+			padding: 40px 20px;
+			border-radius: 30px 30px 0 0;
+			box-shadow: 0 10px 25px rgba(190, 18, 60, 0.05);
+			transition: transform 0.3s ease;
+		}
+		.event-card:hover { transform: translateY(-5px); }
+		.event-title { font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: #be123c; margin-bottom: 15px; }
+		.event-date { font-weight: 600; color: #be123c; font-size: 1.2rem; }
+		.event-address { font-size: 0.9rem; color: #6b7280; margin-top: 10px; line-height: 1.6; }
 
-.flower{
-position:fixed;
-top:-10px;
-animation:fall linear infinite;
-pointer-events:none;
-}
+		@media (max-width: 767px) {
+			.event-card { padding: 30px 15px; margin-bottom: 20px; }
+			.event-title { font-size: 2rem; }
+		}
+		
+		/* --- SECTION ALBUM & LIGHTBOX --- */
+		.album-section { padding: 80px 15px; background: #fffcfc; }
+		.mySwiper { padding-bottom: 50px !important; }
+		.swiper-slide img {
+			width: 100%;
+			height: 500px;
+			object-fit: cover;
+			border-radius: 20px;
+			box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+			cursor: zoom-in;
+		}
+		/* Lightbox phóng to ảnh */
+		#lightbox {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.9);
+			z-index: 10000;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+			cursor: zoom-out;
+		}
+		#lightbox img { max-width: 100%; max-height: 90vh; border-radius: 10px; box-shadow: 0 0 30px rgba(255,255,255,0.2); }
 
-@keyframes fall{
+		@media (max-width: 767px) {
+			.swiper-slide img { height: 350px; }
+		}
+		
+		/* --- TỐI ƯU ĐỐI XỨNG LOVE STORY CHO CẢ WEB & MOBILE --- */
+		/* --- FIX TIMELINE: TRÁI TRÊN MOBILE - GIỮA TRÊN DESKTOP --- */
+		.timeline-container {
+			position: relative;
+		}
 
-0%{
-transform:translateY(-10px) rotate(0)
-}
+		/* Mặc định cho Mobile: Thanh dọc nằm bên trái (20px) */
+		.timeline-container::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			width: 2px;
+			background: #fecdd3;
+			left: 20px; /* Khớp với vị trí chấm tròn mặc định của bạn */
+			z-index: 0;
+		}
 
-100%{
-transform:translateY(100vh) rotate(360deg)
-}
+		/* Chấm tròn trên Mobile */
+		.timeline-container .absolute.left-\[11px\] {
+			left: 11px !important;
+			transform: none !important;
+		}
 
-}
-.btn-open {
-    background: linear-gradient(45deg, #e11d48, #fb7185);
-    box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
-    transition: all 0.3s ease;
-}
-.btn-open:hover {
-    transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 6px 20px rgba(225, 29, 72, 0.6);
-}
-/* Đảm bảo màn hình Opening phủ kín và mượt */
-.opening {
-    transition: all 1.5s ease-in-out;
-}
+		/* --- CHỈ ÁP DỤNG ĐỐI XỨNG KHI TRÊN MÀN HÌNH LỚN (DESKTOP) --- */
+		@media (min-width: 768px) {
+			.timeline-container::before {
+				left: 50% !important;
+				transform: translateX(-50%);
+			}
 
-/* Hiệu ứng cho các item Countdown */
-#countdown div {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    min-width: 80px;
-    color: #be123c; /* Rose 700 */
-}
+			.timeline-container .absolute.left-\[11px\],
+			.timeline-container .absolute.md\:left-1\/2 {
+				left: 50% !important;
+				transform: translateX(-50%) !important;
+			}
+		}
 
-/* Làm cho các ảnh Album có hiệu ứng trượt nhẹ khi di chuột */
-section img {
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
-}
-section img:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-}
+		/* Loại bỏ các đoạn ép Flex trên mobile ở code cũ để nội dung hiển thị theo cột mặc định */
+		/* --- FIX KHOẢNG CÁCH TIMELINE MOBILE --- */
+		@media (max-width: 767px) {
+			/* Ép toàn bộ container về sát lề trái hơn */
+			.timeline-container {
+				padding-left: 10px !important;
+			}
 
-.envelope-wrapper{
-perspective:1000px;
-}
+			/* Thu nhỏ khoảng cách nội dung so với thanh timeline */
+			.timeline-container .w-full {
+				width: 100% !important;
+				/* Giảm padding-left từ 3rem (48px) xuống còn khoảng 25px */
+				padding-left: 35px !important; 
+				display: block !important;
+			}
 
-.envelope{
-width:320px;
-height:200px;
-background:#fda4af;
-position:relative;
-cursor:pointer;
-border-radius:6px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
-}
+			/* Đảm bảo thanh dọc nằm đúng vị trí */
+			.timeline-container::before {
+				left: 20px !important;
+				transform: none !important;
+			}
 
-.envelope-flap{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#fb7185;
-clip-path:polygon(0 0,100% 0,50% 60%);
-transform-origin:top;
-transition:transform 1s ease;
-}
+			/* Đảm bảo chấm tròn nằm đè lên thanh dọc */
+			.timeline-container .absolute.left-\[11px\],
+			.timeline-container .absolute.left-1\/2 {
+				left: 11px !important;
+				transform: none !important;
+			}
 
-.envelope.open .envelope-flap{
-transform:rotateX(180deg);
-}
+			/* Căn chỉnh lại ảnh để không bị tràn màn hình */
+			.story-img-wrapper, .story-img {
+				max-width: 250px !important; /* Thu nhỏ ảnh một chút cho thanh thoát */
+				margin-left: 0 !important;
+			}
+		}
 
-.letter{
-position:absolute;
-top:20px;
-left:20px;
-right:20px;
-bottom:20px;
-background:white;
-border-radius:6px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
-box-shadow:0 5px 15px rgba(0,0,0,0.15);
-}
-.invite-container{
-text-align:center;
-animation:float 3s ease-in-out infinite;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-12px)}
-}
-
-.envelope{
-width:320px;
-height:200px;
-background:linear-gradient(145deg,#fb7185,#e11d48);
-position:relative;
-margin:auto;
-border-radius:6px;
-cursor:pointer;
-box-shadow:0 15px 40px rgba(0,0,0,0.25);
-transition:transform .3s;
-}
-
-.envelope:hover{
-transform:scale(1.05);
-}
-
-.flap{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#f43f5e;
-clip-path:polygon(0 0,100% 0,50% 60%);
-transform-origin:top;
-transition:transform 1s;
-}
-
-.envelope.open .flap{
-transform:rotateX(180deg);
-}
-
-.seal{
-position:absolute;
-bottom:40px;
-left:50%;
-transform:translateX(-50%);
-font-size:40px;
-animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-0%,100%{transform:translateX(-50%) scale(1)}
-50%{transform:translateX(-50%) scale(1.2)}
-}
-
-.open-text{
-margin-top:20px;
-font-size:18px;
-color:#be123c;
-animation:blink 2s infinite;
-}
-
-@keyframes blink{
-0%,100%{opacity:1}
-50%{opacity:.3}
-}
-
-.sparkle{
-font-size:28px;
-margin-bottom:20px;
-animation:spin 6s linear infinite;
-}
-
-@keyframes spin{
-0%{transform:rotate(0)}
-100%{transform:rotate(360deg)}
-}
-.hero {
-    background: url('assets/hero.jpg') center/cover no-repeat;
-    background-attachment: fixed; /* Đây là dòng tạo hiệu ứng Parallax */
-}
-
-/* --- CẬP NHẬT CSS CHO BANK INFO --- */
-.bank-card {
-    background: white;
-    border: 1px solid #f1f1f1;
-    transition: all 0.4s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Căn giữa tất cả thành phần theo chiều dọc */
-}
-
-.bank-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 30px -10px rgba(190, 18, 60, 0.1); /* Shadow màu Rose nhẹ */
-    border-color: #fecdd3; /* Rose 200 */
-}
-
-/* Phóng to ảnh QR */
-.qr-code {
-    width: 100%;       /* Chiếm hết chiều rộng vùng chứa */
-    max-width: 280px;  /* Kích thước tối đa lớn hơn (cũ là 192px/48rem) */
-    height: auto;      /* Giữ tỷ lệ ảnh */
-    aspect-ratio: 1/1; /* Đảm bảo luôn là hình vuông */
-    object-contain: contain;
-    border-radius: 12px;
-    border: 8px solid #fef2f2; /* Rose 50 */
-    transition: transform 0.3s ease;
-}
-
-.bank-card:hover .qr-code {
-    transform: scale(1.03); /* Phóng to nhẹ khi hover */
-}
-
-/* Style cho phần text thông tin */
-.bank-details {
-    width: 100%;
-    max-width: 320px; /* Giới hạn chiều rộng phần text để đẹp mắt */
-    margin-top: 1.5rem;
-}
-/* Custom Timeline cho Mobile */
-.timeline-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #fecdd3; /* Rose 200 */
-    left: 20px; /* Vị trí đường line trên mobile */
-}
-
-@media (min-width: 768px) {
-    .timeline-container::before {
-        left: 50%; /* Đưa ra giữa trên desktop */
-        transform: translateX(-50%);
-    }
-}
-
-/* Hiệu ứng ảnh nghiêng nhẹ giống album thật */
-.story-img {
-    transition: all 0.5s ease;
-    filter: sepia(20%);
-}
-.story-img:hover {
-    filter: sepia(0%);
-    transform: scale(1.05) rotate(0deg) !important;
-}
-/* Swiper cho Bank Info */
-.bankSwiper {
-    padding-bottom: 50px !important; /* Chừa chỗ cho phân trang */
-}
-
-.bankSwiper .swiper-slide {
-    width: 85%; /* Hiển thị một phần thẻ tiếp theo để khách biết mà vuốt */
-    max-width: 400px;
-}
-
-@media (min-width: 768px) {
-    .bankSwiper .swiper-slide {
-        width: 45%;
-    }
-}
-</style>
-
+		/* Giữ nguyên Desktop ra giữa */
+		@media (min-width: 768px) {
+			.timeline-container::before { left: 50% !important; transform: translateX(-50%); }
+			.timeline-container .absolute.left-\[11px\],
+			.timeline-container .absolute.md\:left-1\/2 {
+				left: 50% !important;
+				transform: translateX(-50%) !important;
+			}
+		}
+    </style>
 </head>
 
-<body class="text-gray-700">
+<body>
+    <audio id="music" loop><source src="assets/music.mp3"></audio>
 
-<audio id="music" loop>
-<source src="assets/music.mp3">
-</audio>
+    <div id="opening" class="opening">
+        <div class="opening-left"></div>
+        <div class="opening-right"></div>
+        <div class="invite-container text-center">
+            <div class="text-3xl mb-4">✨</div>
+            <div class="envelope" onclick="openInvite()">
+                <div class="flap"></div>
+                <div class="seal">💌</div>
+            </div>
+            <p class="mt-6 text-rose-700 font-medium animate-pulse">Nhấn vào phong bì để mở thiệp</p>
+        </div>
+    </div>
 
+    <div id="flowers"></div>
 
-<!-- OPENING ENVELOPE -->
-<div id="opening" class="opening">
+    <section class="hero min-h-screen flex items-center justify-center text-center text-white relative">
+        <div class="overlay absolute inset-0"></div>
+        <div class="relative z-10 px-6">
+            <h1 class="title text-6xl md:text-8xl mb-6">Trọng Thông & Thảo Lan</h1>
+            <p class="text-xl tracking-widest">SAVE THE DATE</p>
+            <p class="text-3xl mt-4 font-light">30.03.2026</p>
+        </div>
+    </section>
 
-<div class="invite-container">
+    <section class="couple-section">
+        <div class="couple-item" data-aos="fade-right">
+            <div class="couple-img"><img src="assets/photo6.jpg"></div>
+            <div class="couple-info text-left">
+                <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">The Bride</p>
+                <h2 class="title text-rose-600 text-5xl">Thảo Lan</h2>
+                <p class="italic text-gray-600 mt-2">"Dịu dàng, chân thành & yêu những khoảnh khắc bình yên."</p>
+            </div>
+        </div>
 
-<div class="sparkle">✨</div>
+        <div class="couple-item reverse" data-aos="fade-left">
+            <div class="couple-info text-right md:pr-8">
+                <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">The Groom</p>
+                <h2 class="title text-rose-600 text-5xl">Trọng Thông</h2>
+                <p class="italic text-gray-600 mt-2">"Điềm đạm, vững chãi & trân trọng giá trị gia đình."</p>
+            </div>
+            <div class="couple-img"><img src="assets/photo5.jpg"></div>
+        </div>
+    </section>
+	
+	<!-- trích dẫn tình yêu -->
+	<section data-aos="fade-up" data-aos-duration="1000" class="py-16 text-center bg-white">
 
-<div class="envelope" onclick="openInvite()">
+	<p class="text-2xl italic text-gray-600 max-w-3xl mx-auto">
+	“Tình yêu không phải là nhìn vào nhau,
+	mà là cùng nhau nhìn về một hướng.”
+	</p>
 
-<div class="flap"></div>
+	<p class="mt-4 text-rose-600">
+	— Antoine de Saint-Exupéry —
+	</p>
 
-<div class="seal">💌</div>
+	</section>
 
-</div>
+    <section class="py-20 text-center bg-white" data-aos="fade-up">
+        <h2 class="title text-5xl text-rose-700 mb-8">Ngày Trọng Đại</h2>
+        <div id="countdown" class="text-2xl font-semibold flex justify-center gap-2 md:gap-4"></div>
+    </section>
+	
+	<section class="py-24 bg-white overflow-hidden">
+		<div class="container mx-auto px-4">
+			<h2 class="title text-6xl text-center text-rose-700 mb-20" data-aos="zoom-in">
+				Our Love Story
+			</h2>
 
-<p class="open-text">
-Nhấn vào phong bì để mở thiệp
-</p>
-
-</div>
-
-</div>
-
-
-
-<!-- FLOWERS -->
-
-<div id="flowers"></div>
-
-
-
-<!-- HERO -->
-
-<section data-aos="fade-up" data-aos-duration="1000" class="hero min-h-screen flex items-center justify-center text-center text-white">
-
-<div class="overlay absolute inset-0"></div>
-
-<div class="relative z-10 px-6">
-
-<h1 class="title text-7xl md:text-8xl mb-6">
-Trọng Thông & Thảo Lan
-</h1>
-
-<p class="text-xl">
-Save The Date
-</p>
-
-<p class="text-2xl mt-2">
-30.03.2026
-</p>
-
-</div>
-
-</section>
-
-
-<!-- trích dẫn tình yêu -->
-<section data-aos="fade-up" data-aos-duration="1000" class="py-16 text-center bg-white">
-
-<p class="text-2xl italic text-gray-600 max-w-3xl mx-auto">
-“Tình yêu không phải là nhìn vào nhau,
-mà là cùng nhau nhìn về một hướng.”
-</p>
-
-<p class="mt-4 text-rose-600">
-— Antoine de Saint-Exupéry —
-</p>
-
-</section>
-
-
-
-
-<!-- COUNTDOWN -->
-
-<section data-aos="fade-up" data-aos-duration="1000" class="py-20 text-center">
-
-<h2 class="title text-5xl text-rose-700 mb-8">
-Ngày Trọng Đại
-</h2>
-
-<div id="countdown" class="text-3xl font-semibold"></div>
-
-</section>
-
-
-<!-- LOVE STORY NÂNG CẤP ĐA THIẾT BỊ -->
-<section class="py-24 bg-white overflow-hidden">
-    <div class="container mx-auto px-4">
-        <h2 class="title text-6xl text-center text-rose-700 mb-20" data-aos="zoom-in">
-            Our Love Story
-        </h2>
-
-        <div class="relative timeline-container px-4 md:px-0">
-            <!-- Item 1: 2019 -->
-            <div class="flex flex-col md:flex-row items-start md:items-center mb-16 relative pl-12 md:pl-0">
-                <!-- Chấm tròn mốc thời gian -->
-                <div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
-                
-                <div class="w-full md:w-1/2 md:pr-16 text-left md:text-right" data-aos="fade-right">
-                    <h3 class="text-3xl font-serif text-rose-700 mb-2">2019</h3>
-                  					
-					<!-- Cấu trúc ảnh mới cho tất cả các item trong Love Story -->
-					<div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3 w-full max-w-[280px]">
-						<img src="assets/photo1.jpg" 
-							 class="story-img w-full h-auto object-contain rounded-lg rotate-[-3deg]">
-					</div>
+			<div class="relative timeline-container px-4 md:px-0">
+				
+				<div class="flex flex-col md:flex-row items-start md:items-center mb-16 relative pl-12 md:pl-0">
+					<div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
 					
-                    <p class="text-gray-600 italic font-medium">"Lần đầu ta gặp nhỏ..."</p>
-                    <p class="text-sm text-gray-400 mt-2 leading-relaxed">Ánh mắt ấy đã làm trái tim tôi lỡ nhịp ngay từ phút giây đầu tiên tại quán cà phê quen thuộc.</p>
-                </div>
-                <div class="hidden md:block md:w-1/2"></div>
-            </div>
-
-            <!-- Item 2: 2021 -->
-            <div class="flex flex-col md:flex-row-reverse items-start md:items-center mb-16 relative pl-12 md:pl-0">
-                <div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
-                
-                <div class="w-full md:w-1/2 md:pl-16 text-left" data-aos="fade-left">
-                    <h3 class="text-3xl font-serif text-rose-700 mb-2">2021</h3>
-                    <div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3 w-full max-w-[280px]">
-						<img src="assets/photo2.jpg" 
-							 class="story-img w-full h-auto object-contain rounded-lg rotate-[-3deg]">
+					<div class="w-full md:w-1/2 md:pr-16 text-left md:text-right" data-aos="fade-right">
+						<h3 class="text-3xl font-serif text-rose-700 mb-2">2019</h3>
+						<div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3 w-full max-w-[280px]">
+							<img src="assets/photo1.jpg" class="story-img w-full h-auto object-contain rounded-lg rotate-[-3deg]" alt="Kỷ niệm 2019">
+						</div>
+						<p class="text-gray-600 italic font-medium">"Lần đầu ta gặp nhỏ..."</p>
+						<p class="text-sm text-gray-400 mt-2 leading-relaxed">Ánh mắt ấy đã làm trái tim tôi lỡ nhịp ngay từ phút giây đầu tiên tại quán cà phê quen thuộc.</p>
 					</div>
-                    <p class="text-gray-600 italic font-medium">Lời tỏ tình vụng về</p>
-                    <p class="text-sm text-gray-400 mt-2 leading-relaxed">Dưới cơn mưa phùn Hà Nội, chúng mình chính thức gọi nhau là "người yêu". Một hành trình mới bắt đầu.</p>
-                </div>
-                <div class="hidden md:block md:w-1/2"></div>
-            </div>
+					<div class="hidden md:block md:w-1/2"></div>
+				</div>
 
-            <!-- Item 3: 2024 -->
-            <div class="flex flex-col md:flex-row items-start md:items-center mb-16 relative pl-12 md:pl-0">
-                <div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
-                
-                <div class="w-full md:w-1/2 md:pr-16 text-left md:text-right" data-aos="fade-right">
-                    <h3 class="text-3xl font-serif text-rose-700 mb-2">2024</h3>
-                    <div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3 w-full max-w-[280px]">
-						<img src="assets/photo3.jpg" 
-							 class="story-img w-full h-auto object-contain rounded-lg rotate-[-3deg]">
+				<div class="flex flex-col md:flex-row-reverse items-start md:items-center mb-16 relative pl-12 md:pl-0">
+					<div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
+					
+					<div class="w-full md:w-1/2 md:pl-16 text-left" data-aos="fade-left">
+						<h3 class="text-3xl font-serif text-rose-700 mb-2">2021</h3>
+						<div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3 w-full max-w-[280px]">
+							<img src="assets/photo2.jpg" class="story-img w-full h-auto object-contain rounded-lg rotate-[3deg]" alt="Kỷ niệm 2021">
+						</div>
+						<p class="text-gray-600 italic font-medium">Lời tỏ tình vụng về</p>
+						<p class="text-sm text-gray-400 mt-2 leading-relaxed">Dưới cơn mưa phùn Hà Nội, chúng mình chính thức gọi nhau là "người yêu". Một hành trình mới bắt đầu.</p>
 					</div>
-                    <p class="text-gray-600 italic font-medium">Will you marry me?</p>
-                    <p class="text-sm text-gray-400 mt-2 leading-relaxed">Chiếc nhẫn cầu hôn đã tìm thấy chủ nhân của nó. Một cái gật đầu nhẹ nhàng và những giọt nước mắt hạnh phúc.</p>
-                </div>
-                <div class="hidden md:block md:w-1/2"></div>
-            </div>
+					<div class="hidden md:block md:w-1/2"></div>
+				</div>
 
-            <!-- Item 4: 2026 -->
-            <div class="flex flex-col md:flex-row-reverse items-start md:items-center relative pl-12 md:pl-0">
-                <div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
-                
-                <div class="w-full md:w-1/2 md:pl-16 text-left" data-aos="fade-left">
-                    <h3 class="text-3xl font-serif text-rose-700 mb-2">2026</h3>
-                    <div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3 w-full max-w-[280px]">
-						<img src="assets/photo4.jpg" 
-							 class="story-img w-full h-auto object-contain rounded-lg rotate-[-3deg]">
+				<div class="flex flex-col md:flex-row items-start md:items-center mb-16 relative pl-12 md:pl-0">
+					<div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
+					
+					<div class="w-full md:w-1/2 md:pr-16 text-left md:text-right" data-aos="fade-right">
+						<h3 class="text-3xl font-serif text-rose-700 mb-2">2024</h3>
+						<div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3 w-full max-w-[280px]">
+							<img src="assets/photo3.jpg" class="story-img w-full h-auto object-contain rounded-lg rotate-[-3deg]" alt="Kỷ niệm 2024">
+						</div>
+						<p class="text-gray-600 italic font-medium">Will you marry me?</p>
+						<p class="text-sm text-gray-400 mt-2 leading-relaxed">Chiếc nhẫn cầu hôn đã tìm thấy chủ nhân của nó. Một cái gật đầu nhẹ nhàng và những giọt nước mắt hạnh phúc.</p>
 					</div>
-                    <p class="text-gray-600 italic font-medium">Mãi mãi một tình yêu</p>
-                    <p class="text-sm text-gray-400 mt-2 leading-relaxed">Cám ơn bạn đã xuất hiện để hoàn thiện mảnh ghép cuộc đời mình. Chào mừng ngày chung đôi!</p>
-                </div>
-                <div class="hidden md:block md:w-1/2"></div>
+					<div class="hidden md:block md:w-1/2"></div>
+				</div>
+
+				<div class="flex flex-col md:flex-row-reverse items-start md:items-center relative pl-12 md:pl-0">
+					<div class="absolute left-[11px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 bg-rose-500 rounded-full border-4 border-white z-10 shadow-sm" data-aos="zoom-in"></div>
+					
+					<div class="w-full md:w-1/2 md:pl-16 text-left" data-aos="fade-left">
+						<h3 class="text-3xl font-serif text-rose-700 mb-2">2026</h3>
+						<div class="inline-block p-1 bg-rose-50 rounded-lg shadow-sm mb-3 w-full max-w-[280px]">
+							<img src="assets/photo4.jpg" class="story-img w-full h-auto object-contain rounded-lg rotate-[3deg]" alt="Kỷ niệm 2026">
+						</div>
+						<p class="text-gray-600 italic font-medium">Mãi mãi một tình yêu</p>
+						<p class="text-sm text-gray-400 mt-2 leading-relaxed">Cám ơn bạn đã xuất hiện để hoàn thiện mảnh ghép cuộc đời mình. Chào mừng ngày chung đôi!</p>
+					</div>
+					<div class="hidden md:block md:w-1/2"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="wedding-event-section" data-aos="fade-up">
+		<div class="container mx-auto max-w-5xl">
+			<h2 class="title text-6xl text-center text-rose-700 mb-16">Lễ Vu Quy</h2>
+			
+			<div class="grid md:grid-cols-2 gap-8 px-4">
+				<div class="event-card text-center" data-aos="zoom-in-right">
+					<div class="text-4xl mb-4">🎎</div>
+					<h3 class="event-title">Lễ Nạp Tài</h3>
+					<p class="uppercase tracking-widest text-xs text-gray-400 mb-2">Tại Nhà Gái</p>
+					<div class="event-date">15:20 | Thứ Bảy</div>
+					<div class="text-lg font-medium text-gray-700">28 . 03 . 2026</div>
+					<p class="text-sm italic text-rose-400">(Tức ngày 10 tháng 02 năm Bính Ngọ)</p>
+					<p class="event-address">
+						Số 46, Thôn Tân Xuân, <br>
+						Xã Hoằng Thanh, Tỉnh Thanh Hóa
+					</p>
+					<a href="https://maps.app.goo.gl/hEQxK439REnjMHZXA" target="_blank" 
+					   class="inline-block mt-6 px-8 py-2 border border-rose-200 text-rose-600 rounded-full hover:bg-rose-50 transition">
+						🗺 Xem bản đồ
+					</a>
+				</div>
+
+				<div class="event-card text-center" data-aos="zoom-in-left">
+					<div class="text-4xl mb-4">💍</div>
+					<h3 class="event-title">Lễ Thành Hôn</h3>
+					<p class="uppercase tracking-widest text-xs text-gray-400 mb-2">Tại Nhà Trai</p>
+					<div class="event-date">12:10 | Thứ Hai</div>
+					<div class="text-lg font-medium text-gray-700">30 . 03 . 2026</div>
+					<p class="text-sm italic text-rose-400">(Tức ngày 12 tháng 02 năm Bính Ngọ)</p>
+					<p class="event-address">
+						Số 7, Ngõ 7, Thôn Lê Giang, <br>
+						Xã Hoằng Thanh, Tỉnh Thanh Hoá
+					</p>
+					<a href="https://maps.app.goo.gl/iePV9sVEejfFuxPMA" target="_blank" 
+					   class="inline-block mt-6 px-8 py-2 bg-rose-600 text-white rounded-full shadow-md hover:bg-rose-700 transition">
+						🗺 Xem bản đồ
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="album-section" data-aos="fade-up">
+		<h2 class="title text-6xl text-center text-rose-700 mb-12">Album Ảnh Cưới</h2>
+		
+		<div class="swiper mySwiper max-w-5xl mx-auto">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><img src="assets/photo1.jpg" onclick="showFull(this.src)"></div>
+				<div class="swiper-slide"><img src="assets/photo2.jpg" onclick="showFull(this.src)"></div>
+				<div class="swiper-slide"><img src="assets/photo3.jpg" onclick="showFull(this.src)"></div>
+				<div class="swiper-slide"><img src="assets/photo4.jpg" onclick="showFull(this.src)"></div>
+				<div class="swiper-slide"><img src="assets/photo5.jpg" onclick="showFull(this.src)"></div>
+				<div class="swiper-slide"><img src="assets/photo6.jpg" onclick="showFull(this.src)"></div>
+			</div>
+			<div class="swiper-pagination"></div>
+			<div class="swiper-button-next text-rose-600"></div>
+			<div class="swiper-button-prev text-rose-600"></div>
+		</div>
+	</section>
+
+	<div id="lightbox" onclick="this.style.display='none'">
+		<img id="lightbox-img" src="">
+	</div>
+
+    <!-- GIA ĐÌNH HAI BÊN -->
+
+	<section data-aos="fade-up" data-aos-duration="1000" class="py-24 bg-rose-50 text-center">
+
+	<h2 class="title text-5xl text-rose-700 mb-16">
+	Gia Đình Hai Bên
+	</h2>
+
+	<div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto px-6">
+
+
+	<!-- NHÀ TRAI -->
+
+	<div class="bg-white p-8 rounded-2xl shadow">
+
+	<h3 class="title text-3xl text-rose-700 mb-6">
+	🤵 Nhà Trai
+	</h3>
+
+	<p class="font-semibold">
+	Ông: Chu Trọng Minh
+	</p>
+
+	<p class="mb-4">
+	Bà: Nguyễn Thị Nam
+	</p>
+
+	<p class="text-gray-600">
+	Địa chỉ:
+	</p>
+
+	<p class="text-gray-700">
+	Số 7, Ngõ 7, Thôn Lê Giang  
+	<br>
+	Xã Hoằng Thanh, Tỉnh Thanh Hoá
+	</p>
+
+	<a 
+	href="https://maps.app.goo.gl/iePV9sVEejfFuxPMA"
+	target="_blank"
+	class="inline-block mt-4 px-6 py-2 bg-rose-600 text-white rounded-full shadow hover:bg-rose-700 transition"
+	>
+	🗺 Xem bản đồ
+	</a>
+
+	</div>
+
+
+
+	<!-- NHÀ GÁI -->
+
+	<div class="bg-white p-8 rounded-2xl shadow">
+
+	<h3 class="title text-3xl text-rose-700 mb-6">
+	👰 Nhà Gái
+	</h3>
+
+	<p class="font-semibold">
+	Ông: Nguyễn Văn Hải
+	</p>
+
+	<p class="mb-4">
+	Bà: Đỗ Thị Duyên
+	</p>
+
+	<p class="text-gray-600">
+	Địa chỉ:
+	</p>
+
+	<p class="text-gray-700">
+	Số 46, Thôn Tân Xuân  
+	<br>
+	Xã Hoằng Thanh, Tỉnh Thanh Hoá 
+
+	</p>
+
+
+	<a 
+	href="https://maps.app.goo.gl/LWzzvkHmngSXgt5x9"
+	target="_blank"
+	class="inline-block mt-4 px-6 py-2 bg-rose-600 text-white rounded-full shadow hover:bg-rose-700 transition"
+	>
+	🗺 Xem bản đồ
+	</a>
+
+
+
+	</div>
+
+
+	</div>
+
+	</section>
+
+    <section class="py-24 bg-white text-center" data-aos="fade-up">
+        <h2 class="title text-5xl text-rose-700 mb-8">Hộp Mừng Cưới</h2>
+        <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-xl border border-rose-100">
+            <img src="https://api.vietqr.io/image/970423-0345090060-hT4v7rG.jpg?accountName=NGUYEN%20NGOC%20THAO%20LAN" class="qr-code mx-auto" alt="QR">
+            <div class="mt-6 text-left text-sm bg-rose-50 p-4 rounded-xl">
+                <p>Ngân hàng: <b>TPBank</b></p>
+                <p>STK: <b class="text-rose-700">0345090060</b> (Thảo Lan)</p>
             </div>
         </div>
-    </div>
-</section>
-
-
-<!-- GIA ĐÌNH HAI BÊN -->
-
-<section data-aos="fade-up" data-aos-duration="1000" class="py-24 bg-rose-50 text-center">
-
-<h2 class="title text-5xl text-rose-700 mb-16">
-Gia Đình Hai Bên
-</h2>
-
-<div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto px-6">
-
-
-<!-- NHÀ TRAI -->
-
-<div class="bg-white p-8 rounded-2xl shadow">
-
-<h3 class="title text-3xl text-rose-700 mb-6">
-🤵 Nhà Trai
-</h3>
-
-<p class="font-semibold">
-Ông: Chu Trọng Minh
-</p>
-
-<p class="mb-4">
-Bà: Nguyễn Thị Nam
-</p>
-
-<p class="text-gray-600">
-Địa chỉ:
-</p>
-
-<p class="text-gray-700">
-Số 7, Ngõ 7, Thôn Lê Giang  
-<br>
-Xã Hoằng Thanh, Tỉnh Thanh Hoá
-</p>
-
-<a 
-href="https://maps.app.goo.gl/jqgYRj9zDcfhMJUZ9"
-target="_blank"
-class="inline-block mt-4 px-6 py-2 bg-rose-600 text-white rounded-full shadow hover:bg-rose-700 transition"
->
-🗺 Xem bản đồ
-</a>
-
-</div>
-
-
-
-<!-- NHÀ GÁI -->
-
-<div class="bg-white p-8 rounded-2xl shadow">
-
-<h3 class="title text-3xl text-rose-700 mb-6">
-👰 Nhà Gái
-</h3>
-
-<p class="font-semibold">
-Ông: Nguyễn Văn Hải
-</p>
-
-<p class="mb-4">
-Bà: Đỗ Thị Duyên
-</p>
-
-<p class="text-gray-600">
-Địa chỉ:
-</p>
-
-<p class="text-gray-700">
-Số 46, Thôn Tân Xuân  
-<br>
-Xã Hoằng Thanh, Tỉnh Thanh Hoá 
-
-</p>
-
-
-<a 
-href="https://maps.app.goo.gl/w9R3JpXK8YtdXeaq6"
-target="_blank"
-class="inline-block mt-4 px-6 py-2 bg-rose-600 text-white rounded-full shadow hover:bg-rose-700 transition"
->
-🗺 Xem bản đồ
-</a>
-
-
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-
-<!-- ALBUM -->
-<section data-aos="fade-up" class="py-20 bg-rose-50">
-    <h2 class="title text-5xl text-center text-rose-700 mb-12">Album Ảnh Cưới</h2>
-    
-    <div class="swiper mySwiper max-w-5xl mx-auto px-6">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide cursor-pointer">
-                <img src="assets/photo1.jpg" class="rounded-xl shadow-lg w-full h-[500px] object-cover" onclick="showFull(this.src)">
-            </div>
-            <div class="swiper-slide cursor-pointer">
-                <img src="assets/photo2.jpg" class="rounded-xl shadow-lg w-full h-[500px] object-cover" onclick="showFull(this.src)">
-            </div>
-            <div class="swiper-slide cursor-pointer">
-                <img src="assets/photo3.jpg" class="rounded-xl shadow-lg w-full h-[500px] object-cover" onclick="showFull(this.src)">
-            </div>
-            <div class="swiper-slide cursor-pointer">
-                <img src="assets/photo4.jpg" class="rounded-xl shadow-lg w-full h-[500px] object-cover" onclick="showFull(this.src)">
-            </div>
-        </div>
-        <div class="swiper-pagination mt-10"></div>
-        <div class="swiper-button-next text-rose-600"></div>
-        <div class="swiper-button-prev text-rose-600"></div>
-    </div>
-</section>
-
-<div id="lightbox" class="fixed inset-0 bg-black/90 z-[10000] hidden flex items-center justify-center p-4 cursor-zoom-out" onclick="this.classList.add('hidden')">
-    <img id="lightbox-img" src="" class="max-w-full max-h-full rounded-lg shadow-2xl">
-</div>
-
-
-
-<!-- LỄ CƯỚI -->
-
-<section data-aos="fade-up" data-aos-duration="1000" class="py-20 bg-white text-center">
-
-<h2 class="title text-5xl text-rose-700 mb-12">
-Lễ Vu Quy
-</h2>
-
-<div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto px-6">
-
-
-<!-- LỄ NẠP TÀI -->
-
-<div class="bg-rose-50 p-8 rounded-2xl shadow">
-
-<h3 class="title text-3xl text-rose-700 mb-4">
-🎎 Lễ Nạp Tài
-</h3>
-
-<p class="text-lg font-semibold">
-Tại: Tư Gia Nhà Gái
-</p>
-
-<p class="mt-2">
-15:20 - Thứ Bảy
-</p>
-
-<p class="text-xl text-rose-700 font-semibold">
-28.03.2026
-</p>
-
-<p class="mt-2 text-gray-600">
-Số 46, Thôn Tân Xuân
-Xã Hoằng Thanh, Tỉnh Thanh Hoá
-</p>
-<a 
-href="https://maps.app.goo.gl/w9R3JpXK8YtdXeaq6"
-target="_blank"
-class="inline-block mt-4 px-6 py-2 bg-rose-600 text-white rounded-full shadow hover:bg-rose-700 transition"
->
-🗺 Xem bản đồ
-</a>
-
-
-</div>
-
-
-
-<!-- LỄ THÀNH HÔN -->
-
-<div class="bg-rose-50 p-8 rounded-2xl shadow">
-
-<h3 class="title text-3xl text-rose-700 mb-4">
-💍 Lễ Thành Hôn
-</h3>
-
-<p class="text-lg font-semibold">
-Tại: Tư Gia Nhà Trai
-</p>
-
-<p class="mt-2">
-12:10 - Thứ Hai
-</p>
-
-<p class="text-xl text-rose-700 font-semibold">
-30.03.2026
-</p>
-
-<p class="mt-2 text-gray-600">
-Số 7, Ngõ 7, Thôn Lê Giang
-Xã Hoằng Thanh, Tỉnh Thanh Hoá
-</p>
-<a 
-href="https://maps.app.goo.gl/jqgYRj9zDcfhMJUZ9"
-target="_blank"
-class="inline-block mt-4 px-6 py-2 bg-rose-600 text-white rounded-full shadow hover:bg-rose-700 transition"
->
-🗺 Xem bản đồ
-</a>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- BANK INFO SECTION (SINGLE CARD - CÔ DÂU) -->
-<section data-aos="fade-up" data-aos-duration="1000" class="py-24 bg-rose-50/50 text-center">
-    <div class="container mx-auto px-6">
-        <h2 class="title text-6xl text-rose-700 mb-4">Hộp Mừng Cưới</h2>
-        <p class="text-gray-500 italic mb-12 max-w-2xl mx-auto leading-relaxed px-4">
-            Hạnh phúc của chúng mình trọn vẹn hơn khi có sự chúc phúc của bạn. <br class="hidden md:block"> Gửi yêu thương đến tổ ấm mới của chúng mình.
-        </p>
-
-        <!-- Thẻ Ngân Hàng Căn Giữa -->
-        <div class="max-w-md mx-auto">
-            <div class="bank-card p-10 rounded-3xl shadow-lg relative overflow-hidden bg-white border border-rose-100">
-                <!-- Họa tiết trang trí góc -->
-                <div class="absolute top-0 right-0 w-24 h-24 bg-rose-100 rounded-bl-full opacity-60"></div>
-                
-                <h3 class="title text-4xl text-rose-600 mb-8 z-10 relative">Mừng Cưới dâu rể</h3>
-                
-                <div class="flex justify-center w-full mb-8">
-                    <!-- Đảm bảo file ảnh qr-co-dau.jpg có trong thư mục assets -->
-                    <img src="https://api.vietqr.io/image/970423-0345090060-hT4v7rG.jpg?accountName=NGUYEN%20NGOC%20THAO%20LAN" 
-     alt="QR Cô Dâu" 
-     class="qr-code w-full max-w-[280px] rounded-xl shadow-md border-8 border-rose-50">
-                </div>
-
-                <div class="bank-details text-left space-y-4 text-base bg-rose-50/30 p-6 rounded-2xl">
-                    <p class="flex justify-between items-center border-b border-rose-100 pb-2">
-                        <span class="text-gray-500">Ngân hàng:</span> 
-                        <span class="font-semibold uppercase text-rose-800">TPBank</span>
-                    </p>
-                    <div class="flex justify-between items-center border-b border-rose-100 pb-2 cursor-pointer group" 
-                         onclick="copyToClipboard('0345090060')" title="Click để sao chép">
-                        <span class="text-gray-500">Số tài khoản:</span> 
-                        <span class="font-bold tracking-wider text-lg text-rose-900 group-hover:text-rose-600 transition">
-                            0345090060 <span class="text-sm">📋</span>
-                        </span>
-                    </div>
-                    <p class="flex justify-between items-center">
-                        <span class="text-gray-500">Chủ TK:</span> 
-                        <span class="font-semibold uppercase text-gray-800">Nguyễn Ngọc Thảo Lan</span>
-                    </p>
-                </div>
-                
-                <p class="mt-4 text-xs text-gray-400 italic">Chạm vào số tài khoản để sao chép nhanh</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- WISH SECTION -->
-<section data-aos="fade-up" class="py-20 bg-[#f9fbf9] text-center">
-    <div class="max-w-lg mx-auto px-6 bg-white p-8 rounded-2xl shadow-xl border border-rose-100">
-        <img src="https://cdn-icons-png.flaticon.com/512/3710/3710274.png" class="w-16 mx-auto mb-4 opacity-50">
-        <h2 class="title text-4xl text-rose-700 mb-2">Save the Date</h2>
-        <p class="text-sm text-gray-600 mb-8 px-4 leading-relaxed">
-            Đám cưới sẽ trọn vẹn và ý nghĩa hơn khi có sự hiện diện và chúc phúc của bạn. Hãy xác nhận sự có mặt để chúng tôi đón tiếp chu đáo nhất ❤️
-        </p>
-
-        <form id="rsvp-form" class="space-y-4 text-left">
-            <!-- Họ Tên -->
-            <input type="text" id="guest-name" placeholder="Họ và Tên" required 
-                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 outline-none">
-
-            <!-- Trạng thái tham dự -->
-            <div class="grid grid-cols-2 gap-4 p-3 border border-gray-300 rounded-lg">
-                <label class="flex items-center cursor-pointer">
-                    <input type="radio" name="attendance" value="Có, tôi sẽ đến" required class="mr-2 accent-rose-600">
-                    <span class="text-sm">Có, tôi sẽ đến</span>
-                </label>
-                <label class="flex items-center cursor-pointer">
-                    <input type="radio" name="attendance" value="Tiếc quá, tôi bận mất rồi" class="mr-2 accent-rose-600">
-                    <span class="text-sm">Tiếc quá, tôi bận</span>
-                </label>
-            </div>
-
-            <!-- Nơi tham dự & Số lượng -->
-            <div class="grid grid-cols-2 gap-4">
-                <select id="location" class="p-3 border border-gray-300 rounded-lg text-sm outline-none">
-                    <option value="">Nơi tham dự</option>
-                    <option value="Nhà Trai">Nhà Trai (30/03)</option>
-                    <option value="Nhà Gái">Nhà Gái (28/03)</option>
+    </section>
+
+    <section class="py-20 bg-rose-50/50" data-aos="fade-up">
+        <div class="rsvp-container">
+            <h2 class="title text-4xl text-rose-700 text-center mb-6">Xác Nhận Tham Dự</h2>
+            <form id="rsvp-form" class="rsvp-form">
+                <input type="text" id="guest-name" placeholder="Họ và tên của bạn" required>
+                <select id="attendance" required>
+                    <option value="">Bạn sẽ tham dự chứ?</option>
+                    <option value="Có">Có, mình sẽ đến</option>
+                    <option value="Không">Tiếc quá, mình bận</option>
                 </select>
-                <select id="guest-count" class="p-3 border border-gray-300 rounded-lg text-sm outline-none">
-                    <option value="1">1 người</option>
-                    <option value="2">2 người</option>
-                    <option value="3">3 người</option>
-                    <option value="4">4 người</option>
-                </select>
-            </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <select id="location">
+                        <option value="Nhà Trai">Nhà Trai (30/03)</option>
+                        <option value="Nhà Gái">Nhà Gái (28/03)</option>
+                    </select>
+                    <select id="guest-count">
+                        <option value="1">1 người</option>
+                        <option value="2">2 người</option>
+                    </select>
+                </div>
+                <textarea id="guest-message" rows="3" placeholder="Lời nhắn gửi dâu rể..."></textarea>
+                <button type="submit" id="rsvp-btn" class="w-full py-4 bg-rose-700 text-white rounded-lg font-bold">GỬI XÁC NHẬN</button>
+            </form>
+            <div id="rsvp-status" class="hidden mt-4 text-center text-green-600 font-medium">Cảm ơn bạn đã xác nhận! ❤️</div>
+        </div>
+    </section>
 
-            <!-- Lời chúc -->
-            <textarea id="guest-message" placeholder="Gửi lời nhắn cho cô dâu chú rể" rows="3"
-                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 outline-none"></textarea>
+    <footer class="py-10 text-center bg-rose-50">
+        <h2 class="title text-4xl text-rose-700">Lời Cảm Ơn</h2>
+        <p class="text-gray-500 mt-2">Hẹn gặp bạn trong ngày vui của chúng mình!</p>
+    </footer>
 
-            <button type="submit" id="rsvp-btn" 
-                class="w-full py-4 bg-[#1a3a32] text-white rounded-lg font-bold tracking-widest hover:bg-black transition duration-300">
-                XÁC NHẬN
-            </button>
-        </form>
-        <div id="rsvp-status" class="mt-4 hidden text-green-700 font-medium">Cảm ơn bạn đã xác nhận!</div>
-    </div>
-</section>
+    <script>
+        function openInvite() {
+			const opening = document.getElementById("opening");
+			const envelope = document.querySelector(".envelope");
+			const music = document.getElementById("music");
 
+			envelope.classList.add("open");
+			music.play().catch(() => {});
 
-<footer class="py-10 text-center text-gray-500">
+			setTimeout(() => {
+				opening.classList.add("opened");
+				
+				// Khởi tạo hiệu ứng AOS
+				AOS.init({ duration: 1200, once: true });
 
-<section class="py-20 text-center bg-rose-50">
+				// Khởi tạo Swiper Album 3D
+				new Swiper(".mySwiper", {
+					effect: "coverflow",
+					grabCursor: true,
+					centeredSlides: true,
+					slidesPerView: "auto",
+					coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
+					pagination: { el: ".swiper-pagination", clickable: true },
+					navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+					breakpoints: {
+						320: { slidesPerView: 1.2, spaceBetween: 20 },
+						768: { slidesPerView: 2, spaceBetween: 30 },
+						1024: { slidesPerView: 3, spaceBetween: 40 }
+					}
+				});
+			}, 600);
 
-<h2 class="title text-5xl text-rose-700 mb-6">
-Lời Cảm Ơn
-</h2>
+			setTimeout(() => { opening.style.display = "none"; }, 2500);
+		}
 
-<p class="max-w-3xl mx-auto text-lg text-gray-600">
-Sự hiện diện của quý khách là niềm vinh hạnh lớn
-đối với gia đình chúng tôi.
-Xin chân thành cảm ơn!
-</p>
+		function showFull(src) {
+			document.getElementById('lightbox-img').src = src;
+			document.getElementById('lightbox').style.display = 'flex';
+		}
 
-</section>
+        // Countdown Logic
+        const weddingDate = new Date("Mar 30 2026 12:10:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const d = weddingDate - now;
+            const days = Math.floor(d / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((d % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerHTML = 
+                `<div>${days}<span>Ngày</span></div><div>${hours}<span>Giờ</span></div><div>${minutes}<span>Phút</span></div><div>${seconds}<span>Giây</span></div>`;
+        }, 1000);
 
-</footer>
+        // Flower Effect
+        const container = document.getElementById("flowers");
+        for (let i = 0; i < 40; i++) {
+            let flower = document.createElement("div");
+            flower.className = "flower";
+            flower.innerHTML = ["🌸", "✨"][Math.floor(Math.random() * 2)];
+            flower.style.left = Math.random() * 100 + "vw";
+            flower.style.animationDuration = (Math.random() * 5 + 5) + "s";
+            flower.style.animationDelay = Math.random() * 5 + "s";
+            container.appendChild(flower);
+        }
 
-
-
-<script>
-
-// Hàm mở thiệp
-function openInvite(){
-
-const envelope=document.querySelector(".envelope");
-const opening=document.getElementById("opening");
-const music=document.getElementById("music");
-
-envelope.classList.add("open");
-
-music.play().catch(()=>{});
-
-setTimeout(()=>{
-
-opening.style.opacity="0";
-opening.style.visibility="hidden";
-
-AOS.init({
-duration:1200,
-once:true,
-offset:100
-});
-
-AOS.refresh();
-
-},1500);
-
-}
-
-/* --- Countdown Logic --- */
-const weddingDate = new Date("Mar 30 2026 12:10:00").getTime();
-setInterval(() => {
-    const now = new Date().getTime();
-    const d = weddingDate - now;
-
-    if (d < 0) {
-        document.getElementById("countdown").innerHTML = "Đám cưới đã diễn ra!";
-        return;
-    }
-
-    const days = Math.floor(d / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((d % (1000 * 60)) / 1000);
-
-    document.getElementById("countdown").innerHTML = 
-        `<div class="flex justify-center gap-4">
-            <div>${days}<span class="text-sm block font-normal">Ngày</span></div>
-            <div>${hours}<span class="text-sm block font-normal">Giờ</span></div>
-            <div>${minutes}<span class="text-sm block font-normal">Phút</span></div>
-            <div>${seconds}<span class="text-sm block font-normal">Giây</span></div>
-        </div>`;
-}, 1000);
-
-/* --- Flower Effect --- */
-const container = document.getElementById("flowers");
-// Tăng số lượng hoa lên 50 cho sinh động
-for (let i = 0; i < 50; i++) {
-    let flower = document.createElement("div");
-    flower.className = "flower";
-    // Mix các loại hoa/lá cho nghệ thuật
-    const icons = ["🌸", "💮", "✨", "🍂"];
-    flower.innerHTML = icons[Math.floor(Math.random() * icons.length)];
-
-    flower.style.left = Math.random() * 100 + "vw";
-    flower.style.opacity = Math.random() * 0.6 + 0.2;
-    flower.style.filter = `blur(${Math.random() * 1.5}px)`;
-    flower.style.fontSize = (Math.random() * 15 + 10) + "px";
-    flower.style.animationDuration = (Math.random() * 8 + 7) + "s"; // Rơi chậm hơn cho lãng mạn
-    flower.style.animationDelay = Math.random() * 5 + "s"; // Delay để hoa không rơi cùng lúc
-
-    container.appendChild(flower);
-}
-// Khởi tạo Swiper
-const swiper = new Swiper(".mySwiper", {
-    effect: "coverflow", // Hiệu ứng 3D đẹp mắt
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: "auto",
-    coverflowEffect: {
-        rotate: 50,
-        stretch: 0,
-        depth: 100,
-        modifier: 1,
-        slideShadows: true,
-    },
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-    breakpoints: {
-        // Cấu hình số ảnh hiển thị trên các màn hình khác nhau
-        320: { slidesPerView: 1.2, spaceBetween: 20 },
-        768: { slidesPerView: 2, spaceBetween: 30 },
-        1024: { slidesPerView: 3, spaceBetween: 40 }
-    }
-});
-
-// Hàm xem ảnh to
-function showFull(src) {
-    const lightbox = document.getElementById('lightbox');
-    const img = document.getElementById('lightbox-img');
-    img.src = src;
-    lightbox.classList.remove('hidden');
-}
-
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMcPHVFT8pN5rBOGkS-f9TqAe4Y7kCUfrad_rhpvSQqYgrl81bL0n4oCqF4wx_mNn5/exec";
-
-document.getElementById('rsvp-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('rsvp-btn');
-    
-    const payload = {
-        name: document.getElementById('guest-name').value,
-        attendance: document.querySelector('input[name="attendance"]:checked').value,
-        location: document.getElementById('location').value,
-        count: document.getElementById('guest-count').value,
-        message: document.getElementById('guest-message').value
-    };
-
-    btn.innerText = "ĐANG GỬI...";
-    btn.disabled = true;
-
-    fetch("https://script.google.com/macros/s/AKfycbxptEDPL3niq39M7Rf-46pIy3q_Gk3GwDjmxGIdZjQiaAbU-iVM7ZZqyAK-ievdpLI4/exec", {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify(payload)
-    }).then(() => {
-        document.getElementById('rsvp-status').classList.remove('hidden');
-        document.getElementById('rsvp-form').reset();
-        btn.innerText = "XÁC NHẬN THÀNH CÔNG";
-    });
-});
-
-</script>
-
+        // RSVP Submit
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('rsvp-btn');
+            btn.innerText = "ĐANG GỬI...";
+            
+            fetch("https://script.google.com/macros/s/AKfycbxptEDPL3niq39M7Rf-46pIy3q_Gk3GwDjmxGIdZjQiaAbU-iVM7ZZqyAK-ievdpLI4/exec", {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify({
+                    name: document.getElementById('guest-name').value,
+                    attendance: document.getElementById('attendance').value,
+                    location: document.getElementById('location').value,
+                    message: document.getElementById('guest-message').value
+                })
+            }).then(() => {
+                document.getElementById('rsvp-status').classList.remove('hidden');
+                btn.innerText = "THÀNH CÔNG";
+            });
+        });
+    </script>
 </body>
 </html>
-
