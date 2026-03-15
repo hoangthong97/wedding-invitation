@@ -323,6 +323,98 @@
 				border-radius: 20px;
 			}
 		}
+		
+		/* --- SECTION TRI ÂN CHA MẸ --- */
+		.gratitude-section {
+			padding: 60px 20px;
+			background: #fff;
+			text-align: center;
+		}
+		.gratitude-box {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 40px 30px;
+			border-top: 1px double #fecdd3;
+			border-bottom: 1px double #fecdd3;
+			position: relative;
+		}
+		.gratitude-box::after {
+			content: "❤";
+			position: absolute;
+			bottom: -12px;
+			left: 50%;
+			transform: translateX(-50%);
+			background: #fff;
+			padding: 0 10px;
+			color: #fb7185;
+		}
+		.gratitude-text {
+			font-size: 1.1rem;
+			line-height: 1.8;
+			color: #4b5563;
+			font-style: italic;
+		}
+		.gratitude-text p {
+			margin-bottom: 1.5rem;
+			font-style: italic;
+			color: #4b5563;
+			line-height: 1.8;
+		}
+
+		.gratitude-box {
+			background: #fffafa; /* Thêm một chút màu nền hồng cực nhạt để làm nổi bật sự ấm áp */
+			border-radius: 20px;
+			border: 1px solid #fecdd3;
+			padding: 50px 20px;
+		}
+		@media (max-width: 767px) {
+			.gratitude-text { font-size: 0.95rem; }
+		}
+		
+		/* --- CHỮ HỶ DẠNG CON DẤU VÀNG CHO HERO --- */
+		.hỷ-badge {
+			position: relative;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 70px;
+			height: 70px;
+			margin-bottom: 20px;
+			border-radius: 50%;
+			/* Tạo hiệu ứng vòng tròn vàng mờ */
+			background: rgba(255, 215, 0, 0.1); /* Màu vàng kim mờ */
+			border: 2px solid rgba(255, 215, 0, 0.3);
+			box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+		}
+
+		.hỷ-text {
+			font-size: 35px;
+			color: #ffd700; /* Màu vàng kim */
+			text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Đổ bóng tạo chiều sâu */
+			line-height: 1;
+		}
+
+		/* Thêm hiệu ứng lấp lánh nhẹ */
+		.hỷ-badge::before {
+			content: "✨";
+			position: absolute;
+			top: -10px;
+			right: -10px;
+			font-size: 15px;
+			opacity: 0.7;
+		}
+		
+		@media (max-width: 767px) {
+			.bio-content {
+				font-size: 0.8rem !important; /* Tăng nhẹ kích thước font trên mobile */
+				line-height: 1.5;
+				padding-right: 5px;
+			}
+			.couple-item.reverse .bio-content {
+				padding-left: 5px;
+				padding-right: 0;
+			}
+		}
     </style>
 </head>
 
@@ -347,44 +439,61 @@
     <section class="hero min-h-screen flex items-center justify-center text-center text-white relative">
         <div class="overlay absolute inset-0"></div>
         <div class="relative z-10 px-6">
-            <h1 class="title text-6xl md:text-8xl mb-6">Trọng Thông & Thảo Lan</h1>
-            <p class="text-xl tracking-widest">SAVE THE DATE</p>
-            <p class="text-3xl mt-4 font-light">30.03.2026</p>
-        </div>
+			<div class="text-4xl md:text-5xl text-rose-300/80 mb-4 font-serif"></div> 
+				
+				<h1 class="title text-6xl md:text-8xl mb-6">Trọng Thông & Thảo Lan</h1>
+				<p class="text-xl tracking-widest uppercase">Save The Date</p>
+				<div class="hỷ-badge mt-2" data-aos="zoom-in">
+					<span class="hỷ-text">囍</span>
+				</div>
+				<p class="text-3xl mt-1 font-light">30.03.2026</p>
+			</div>
     </section>
 
     <section class="couple-section">
-        <div class="couple-item" data-aos="fade-right">
-            <div class="couple-img"><img src="assets/photo6.jpg"></div>
-            <div class="couple-info text-left">
-                <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">The Bride</p>
-                <h2 class="title text-rose-600 text-5xl">Thảo Lan</h2>
-                <p class="italic text-gray-600 mt-2">"Dịu dàng, chân thành & yêu những khoảnh khắc bình yên."</p>
-            </div>
-        </div>
+       <div class="couple-item" data-aos="fade-right">
+			<div class="couple-img"><img src="assets/photo6.jpg"></div>
+			<div class="couple-info text-left">
+				<p class="text-xs uppercase tracking-widest text-gray-400 mb-2">The Bride</p>
+				<h2 class="title text-rose-600 text-5xl">Thảo Lan</h2>
+				<div class="bio-content mt-3 text-gray-600 italic leading-relaxed text-sm md:text-base">
+					"Một cô gái mang trong mình nét dịu dàng của nhành lan, chân thành trong từng suy nghĩ và luôn trân trọng những giá trị giản đơn. Với Lan, hạnh phúc chính là cùng người mình thương vun đắp những khoảnh khắc bình yên nhất."
+				</div>
+			</div>
+		</div>
 
-        <div class="couple-item reverse" data-aos="fade-left">
-            <div class="couple-info text-right md:pr-8">
-                <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">The Groom</p>
-                <h2 class="title text-rose-600 text-5xl">Trọng Thông</h2>
-                <p class="italic text-gray-600 mt-2">"Điềm đạm, vững chãi & trân trọng giá trị gia đình."</p>
-            </div>
-            <div class="couple-img"><img src="assets/photo5.jpg"></div>
-        </div>
+		<div class="couple-item reverse" data-aos="fade-left">
+			<div class="couple-info text-right md:pr-8">
+				<p class="text-xs uppercase tracking-widest text-gray-400 mb-2">The Groom</p>
+				<h2 class="title text-rose-600 text-5xl">Trọng Thông</h2>
+				<div class="bio-content mt-3 text-gray-600 italic leading-relaxed text-sm md:text-base">
+					"Người đàn ông điềm đạm, vững chãi và luôn coi gia đình là bến đỗ quan trọng nhất. Thông nguyện là bờ vai ấm áp, là người đồng hành đáng tin cậy để cùng Lan đi qua mọi thăng trầm của cuộc sống."
+				</div>
+			</div>
+			<div class="couple-img"><img src="assets/photo5.jpg"></div>
+		</div>
     </section>
 	
 	<!-- trích dẫn tình yêu -->
-	<section data-aos="fade-up" data-aos-duration="1000" class="py-16 text-center bg-white">
+	<section data-aos="fade-up" class="py-24 text-center bg-white">
+		<div class="px-6 max-w-4xl mx-auto">
+			<span class="title text-rose-200 text-6xl block mb-2" style="font-family: 'Great Vibes', cursive; line-height: 0;">“</span>
+			
+			<p class="text-2xl md:text-4xl text-gray-700 italic leading-relaxed" 
+			   style="font-family: 'Playfair Display', serif; font-weight: 400;">
+				Gặp gỡ là duyên phận, ở lại bên nhau là sự lựa chọn. <br class="hidden md:block">
+				Và chúng mình đã chọn để trở thành một phần <br class="hidden md:block">
+				không thể thiếu trong cuộc đời nhau.
+			</p>
 
-	<p class="text-2xl italic text-gray-600 max-w-3xl mx-auto">
-	“Tình yêu không phải là nhìn vào nhau,
-	mà là cùng nhau nhìn về một hướng.”
-	</p>
-
-	<p class="mt-4 text-rose-600">
-	— Antoine de Saint-Exupéry —
-	</p>
-
+			<span class="title text-rose-200 text-6xl block mt-4" style="font-family: 'Great Vibes', cursive; line-height: 0;">”</span>
+			
+			<div class="w-16 h-px bg-rose-200 mx-auto mt-8"></div>
+		</div>
+		
+		<p class="mt-6 text-rose-600 text-3xl" style="font-family: 'Great Vibes', cursive;">
+			— Trọng Thông & Thảo Lan —
+		</p>
 	</section>
 
     <section class="py-20 text-center bg-white" data-aos="fade-up">
@@ -459,15 +568,52 @@
 		</div>
 	</section>
 	
+	<section class="album-section" data-aos="fade-up">
+		<h2 class="title text-6xl text-center text-rose-700 mb-12">Album Ảnh Cưới</h2>
+		
+		<div class="swiper mySwiper max-w-5xl mx-auto px-6">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><img src="assets/photo14.jpg" onclick="showFull(this.src)"></div>
+				<div class="swiper-slide"><img src="assets/photo7.jpg" onclick="showFull(this.src)"></div>
+				<div class="swiper-slide"><img src="assets/photo9.jpg" onclick="showFull(this.src)"></div>
+				<div class="swiper-slide"><img src="assets/photo11.jpg" onclick="showFull(this.src)"></div>
+				<div class="swiper-slide"><img src="assets/photo13.jpg" onclick="showFull(this.src)"></div>
+				<div class="swiper-slide"><img src="assets/photo8.jpg" onclick="showFull(this.src)"></div>
+			</div>
+			<div class="swiper-pagination"></div>
+			<div class="swiper-button-next text-rose-600"></div>
+			<div class="swiper-button-prev text-rose-600"></div>
+		</div>
+
+		<div class="album-grid max-w-5xl mx-auto px-6">
+			<div class="grid-item" data-aos="fade-up">
+				<img src="assets/photo1.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 1">
+			</div>
+			<div class="grid-item" data-aos="fade-up" data-aos-delay="100">
+				<img src="assets/photo2.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 2">
+			</div>
+			<div class="grid-item" data-aos="fade-up" data-aos-delay="200">
+				<img src="assets/photo16.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 3">
+			</div>
+			<div class="grid-item" data-aos="fade-up" data-aos-delay="300">
+				<img src="assets/photo18.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 4">
+			</div>
+		</div>
+	</section>
+	
 	<section class="wedding-event-section" data-aos="fade-up">
 		<div class="container mx-auto max-w-5xl">
-			<h2 class="title text-6xl text-center text-rose-700 mb-16">Lễ Vu Quy</h2>
+			<h2 class="title text-6xl text-center text-rose-700 mb-16">
+				<span class="opacity-30 text-4xl mr-4">囍</span> 
+				Lễ Vu Quy 
+				<span class="opacity-30 text-4xl ml-4">囍</span>
+			</h2>
 			
 			<div class="grid md:grid-cols-2 gap-8 px-4">
 				<div class="event-card text-center" data-aos="zoom-in-right">
 					<div class="text-4xl mb-4">🎎</div>
 					<h3 class="event-title">Lễ Nạp Tài</h3>
-					<p class="uppercase tracking-widest text-xs text-gray-400 mb-2">Tại Nhà Gái</p>
+					<p class="uppercase tracking-widest text-xs text-gray-400 mb-2">Tại Tư Gia Nhà Gái</p>
 					<div class="event-date">15:20 | Thứ Bảy</div>
 					<div class="text-lg font-medium text-gray-700">28 . 03 . 2026</div>
 					<p class="text-sm italic text-rose-400">(Tức ngày 10 tháng 02 năm Bính Ngọ)</p>
@@ -484,7 +630,7 @@
 				<div class="event-card text-center" data-aos="zoom-in-left">
 					<div class="text-4xl mb-4">💍</div>
 					<h3 class="event-title">Lễ Thành Hôn</h3>
-					<p class="uppercase tracking-widest text-xs text-gray-400 mb-2">Tại Nhà Trai</p>
+					<p class="uppercase tracking-widest text-xs text-gray-400 mb-2">Tại Tư Gia Nhà Trai</p>
 					<div class="event-date">12:10 | Thứ Hai</div>
 					<div class="text-lg font-medium text-gray-700">30 . 03 . 2026</div>
 					<p class="text-sm italic text-rose-400">(Tức ngày 12 tháng 02 năm Bính Ngọ)</p>
@@ -501,42 +647,27 @@
 		</div>
 	</section>
 	
-	<section class="album-section" data-aos="fade-up">
-		<h2 class="title text-6xl text-center text-rose-700 mb-12">Album Ảnh Cưới</h2>
-		
-		<div class="swiper mySwiper max-w-5xl mx-auto px-6">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide"><img src="assets/photo1.jpg" onclick="showFull(this.src)"></div>
-				<div class="swiper-slide"><img src="assets/photo2.jpg" onclick="showFull(this.src)"></div>
-				<div class="swiper-slide"><img src="assets/photo3.jpg" onclick="showFull(this.src)"></div>
-				<div class="swiper-slide"><img src="assets/photo4.jpg" onclick="showFull(this.src)"></div>
-				<div class="swiper-slide"><img src="assets/photo5.jpg" onclick="showFull(this.src)"></div>
-				<div class="swiper-slide"><img src="assets/photo6.jpg" onclick="showFull(this.src)"></div>
-			</div>
-			<div class="swiper-pagination"></div>
-			<div class="swiper-button-next text-rose-600"></div>
-			<div class="swiper-button-prev text-rose-600"></div>
-		</div>
-
-		<div class="album-grid max-w-5xl mx-auto px-6">
-			<div class="grid-item" data-aos="fade-up">
-				<img src="assets/photo1.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 1">
-			</div>
-			<div class="grid-item" data-aos="fade-up" data-aos-delay="100">
-				<img src="assets/photo2.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 2">
-			</div>
-			<div class="grid-item" data-aos="fade-up" data-aos-delay="200">
-				<img src="assets/photo3.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 3">
-			</div>
-			<div class="grid-item" data-aos="fade-up" data-aos-delay="300">
-				<img src="assets/photo4.jpg" onclick="showFull(this.src)" alt="Ảnh cưới 4">
-			</div>
-		</div>
-	</section>
 
 	<div id="lightbox" onclick="this.style.display='none'">
 		<img id="lightbox-img" src="">
 	</div>
+	
+	<section class="gratitude-section" data-aos="fade-up">
+		<div class="gratitude-box shadow-sm">
+			<h2 class="title text-4xl text-rose-700 mb-8">Lời Tri Ân Cha Mẹ</h2>
+			<div class="gratitude-text space-y-4 px-2 md:px-10">
+				<p>
+					"Chúng con tin rằng, hạnh phúc ngày hôm nay không chỉ được xây dệt từ tình yêu của hai đứa, mà còn được vun đắp bởi tình thương bao la và sự hy sinh thầm lặng của cha mẹ."
+				</p>
+				<p>
+					"Chúng con xin gửi lời tri ân sâu sắc nhất đến cha mẹ hai bên – những người đã ban cho chúng con hình hài, nuôi dưỡng chúng con bằng sự kiên nhẫn và luôn yêu thương chúng con vô điều kiện. Cảm ơn cha mẹ đã luôn là bến đỗ bình yên, là điểm tựa vững chắc nhất để chúng con có đủ tự tin bước vào một hành trình mới."
+				</p>
+				<p>
+					"Những lời dạy bảo và tình yêu của cha mẹ chính là hành trang quý giá nhất mà chúng con mang theo suốt cuộc đời này. Chúng con yêu cha mẹ rất nhiều!"
+				</p>
+			</div>
+		</div>
+	</section>
 
     <!-- GIA ĐÌNH HAI BÊN -->
 
@@ -631,6 +762,7 @@
 	</div>
 
 	</section>
+	
 
     <section class="py-24 bg-white text-center" data-aos="fade-up">
         <h2 class="title text-5xl text-rose-700 mb-8">Hộp Mừng Cưới</h2>
